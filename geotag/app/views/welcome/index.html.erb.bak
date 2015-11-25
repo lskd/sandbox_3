@@ -1,0 +1,43 @@
+<div id="map"></div> <!-- filled in via js -->
+
+<div id="listing">
+
+  <h2>Listings: </h2>
+  <ul>
+
+<% @tasks.each do |task| %>
+    <li> <%= task.descr %> : <%= task.lat %>, <%= task.lng %> </li>
+<% end %>
+  </ul>
+
+
+</div> <!-- end of listing div-->
+
+
+<script>
+
+function initMap() {
+//var myLatLng = {lat: 34.114351, lng: -118.305989};
+// import tasks from ruby.
+var tasks = [<%= raw @tasks.to_json %>];
+
+var map = new google.maps.Map(document.getElementById('map'), { zoom: 10 });
+
+//create empty LatLngBounds object
+var bounds = new google.maps.LatLngBounds();
+var infowindow = new google.maps.InfoWindow();
+
+for (i = 0; i < tasks.length; i++) {
+  marker = new google.maps.Marker({
+  position: new google.maps
+  map: map,
+  title: 'Hello World!'
+  });
+
+}
+
+
+</script>
+<!-- TODO: move api key to env var. -->
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJARH19hZkzXyIvAm1yQ2FFvWUbltYfos&signed_in=true&callback=initMap"></script>

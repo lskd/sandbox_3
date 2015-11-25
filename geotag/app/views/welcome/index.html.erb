@@ -1,0 +1,71 @@
+<header>
+<a href = "/users/sign_in">Login/Register</a>
+|
+<a href = "tasks/new">Create a New Task</a>
+|
+<a href = "tasks">Task Admin System</a>
+</header>
+<div id="map"></div> <!-- filled in via js -->
+
+<div id="listing">
+
+  <h2>Do a Task:  </h2>
+
+  <ul>
+    <% @tasks.each do |task| %>
+      <li> <%= task.price %> <%= task.descr %>
+        <br/> <%= task.location %>
+      </li>
+    <% end %>
+  </ul>
+
+</div> <!-- end of listing div-->
+
+<script>
+function initialize() {
+
+    var tasks = [<%= raw @tasks.to_json %>][0]; // why does this have enclosing elements?
+    //console.log(tasks[0].lat);
+    window.map = new google.maps.Map(document.getElementById('map'), {
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var bounds = new google.maps.LatLngBounds();
+
+    for (i = 0; i < tasks.length; i++) {
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(tasks[i].lat, tasks[i].lng),
+            map: map
+        });
+
+        bounds.extend(marker.position);
+
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                infowindow.setContent(tasks[i].descr);
+                infowindow.open(map, marker);
+            }
+        })(marker, i));
+    }
+
+    map.fitBounds(bounds);
+
+
+    //var listener = google.maps.event.addListener(map, "idle", function () {
+    //    map.setZoom(9);
+    //    google.maps.event.removeListener(listener);
+  //  });
+}
+
+function loadScript() {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' + 'callback=initialize';
+    document.body.appendChild(script);
+}
+
+window.onload = loadScript;
+
+</script>

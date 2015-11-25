@@ -1,0 +1,10 @@
+== README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Auth is from http://sourcey.com/rails-4-omniauth-using-devise-with-twitter-facebook-and-linkedin/
+
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.
