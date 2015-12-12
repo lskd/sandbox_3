@@ -22,4 +22,21 @@ class User < ActiveRecord::Base
     end
   end
 
+  ## overide update_without_password
+  # http://stackoverflow.com/questions/30105116/let-user-update-their-password-without-current-password-in-devise
+  ## works, testing to validate
+
+  def update_without_password(params, *options)
+
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation) if params[:password_confirmation].blank?
+    end
+
+    result = update_attributes(params, *options)
+    clean_up_passwords
+    result
+  end
+
+
 end

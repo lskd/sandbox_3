@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
 
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+  devise_for :users, :controllers => { omniauth_callbacks: 'callbacks', registrations: 'registrations' }
+
+  # devise_for :users, controllers: {registrations: 'registrations'}
 
   # devise github note , not needed while application.html.erb has destroy_user_session_path, method: :delete
   # devise_scope :user do
