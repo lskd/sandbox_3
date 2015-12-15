@@ -1,18 +1,18 @@
 Rails.application.routes.draw do
 
-
-
   devise_for :users, :controllers => { omniauth_callbacks: 'callbacks', registrations: 'registrations' }
-
-  # devise_for :users, controllers: {registrations: 'registrations'}
-
-  # devise github note , not needed while application.html.erb has destroy_user_session_path, method: :delete
-  # devise_scope :user do
-  #   delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
-  # end
 
    root 'pages#index'
    get '/secret', to: 'pages#secret', as: :secret
+
+
+   # devise_for :users, controllers: {registrations: 'registrations'}
+
+   # devise github note , not needed while application.html.erb has destroy_user_session_path, method: :delete
+   # devise_scope :user do
+   #   delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+   # end
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
